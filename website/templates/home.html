@@ -1,0 +1,18 @@
+{# Define sub-template home.html 
+   Allows you to overwrite base template
+   (base.html) title block with the 
+   string "Home"
+
+   content block with the string
+   "DILLON INDUSTRIES"
+#}
+
+{% extends "base.html" %}
+
+{% block title %}
+Home
+{% endblock %}  
+
+{% block content %} 
+<h1>This is the home page</h1>
+{% endblock %}

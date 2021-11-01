@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+{#  Jinja comment syntax 
+      
+    IN FLASK when you render/show HTML on a webpage, it is done/called using a template. 
+    Flask uses a template language called (Jinja). Jinja allows you to write python
+    inside of your HTML document.  Can do things without using JavaScript. 
+
+    Note (base.html) is the base template, it is the theme of this WebSite.
+    Whatever used in base template (Navbar, Footer, Headers) can be overwritten
+    using other specific templates, other HTML documents can overwrite sections
+    of main base template.
+
+    NOTE: (link) below, allows you to be able to use all  
+    bootstrap classes in any html flask template file.
+    As shown below base template (base.html) has (link)
+    to bootstrap classes, as a result all inheriated 
+    template files, (sigh_up.html, ect) also have to 
+    bootstrap classes.
+
+    BOOT STRAP is CSS FRAMEWORK - helps you paint screens.
+#}
+<html>
+  <head>
+    <meta charset="utf-8" />
+    {# width-device-width = take up entire width of screen #}
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    {# import bootstrap which is CSS framework - has builtin Classes  
+       that make it nice to style website.
+       Below are using (2 link)s to CDN - which is a Content Delivery Network, it
+       allows you to load without downloading the file custom CSS and javaScript.
+       Below we are just loading CSS which contains classes we can used for our
+       HTML elements to make them look nice.
+    #}
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      crossorigin="anonymous"
+    />
+
+    {# Define title tag - use Jinja template engine 
+       Jinja templates syntax: {%  %} 
+       if, for, while, expression, block
+       are placed inside {% for %} or {% block %}
+
+       Below, defines a block in the base template base.html
+       that can be overwritten by a child template login.html
+
+       Example: login.html {% block title %}Login{% endblock %}
+       will overwrite (Home) with (Login) on web page.
+    #}
+    <title>{% block title %}BASE{% endblock %}</title>
+
+  </head>
+
+  <body>
+    {# NOTE: navbar is a bootstrap class
+       The navbar is a strip at the top of browser page
+       Link title text will be blue, strip background will be black
+    #}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        {# put buttons on Navbar #}
+        <button
+          {# expands navbar so as to see all buttons when clicking on icon #}
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbar"
+          >
+          {# load icon and show it in buttons, home, login, logout, sign-up 
+           when clicked. 
+          #}
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        {# define navigation items in collapable navbar #}
+        <div class="collapse navbar-collapse" id="navbar">
+            {# navigation items #}
+            <div class="navbar-nav">
+              <a class="nav-item nav-link" id="home"   href="/">Home</a>
+              <a class="nav-item nav-link" id="login"  href="/home/login">Login</a>
+              <a class="nav-item nav-link" id="logout" href="/home/logout">Logout</a>
+              <a class="nav-item nav-link" id="signUp" href="/home/sign-up">Sign Up</a>
+              <a class="nav-item nav-link" id="deleteAccount" href="/home/delete-account">Delete Account</a>
+            </div>
+       </div>
+    </nav>
+
+    {# SETUP for FLASH Messages of Sign_up page 
+      Gets all the messages we have built using FLASH - place in variable (messages)
+      FLASH Messages will show on any inherited page, base.html is the super template
+    #}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            {% if category == 'error' %}
+               {# dif below will allow us to show alert and dismiss it 
+                  for categories of (error)
+                  NOTE: alert-danger = red
+                  SHOW ERROR MESSAGE BOX
+               #}
+               <dif class="alert alert-danger alter-dismissagle fade show" role="alert">
+                  {# show message #}
+                  {{ message }}
+                  {# add button to allow us to dismiss alert #}
+                  <button type="button" class="close" data-dismiss="alert">
+                     {# shows fancy X in button#}
+                     <span aria-hidden="true">&times;</span>
+                  </button>
+               </dif>
+            {% else %}
+               {# dif below will allow us to show alert and dismiss it 
+                  for categories of (success)
+                  NOTE: alert-success = green
+                  SHOW SUCCESS MESSAGE BOX
+               #}
+               <dif class="alert alert-success alter-dismissagle fade show" role="alert">
+                  {# show message #}
+                  {{ message }}
+                  {# add button to allow us to dismiss alert #}
+                  <button type="button" class="close" data-dismiss="alert">
+                     {#  shows fancy X in button#}
+                     <span aria-hidden="true">&times;</span>
+                  </button>
+               </dif>
+            {% endif %}
+         {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    {# Define container  - use Jinja template engine 
+      Jinja templates syntax: {%  %} 
+      if, for, while, expression, block
+      are placed inside {% for %} or {% block %}
+
+      Below, defines a block in the base template base.html
+      that can be overwritten by a child template login.html
+
+      Example: login.html {% block container %}Login{% endblock %}
+      will overwrite (HOLD) with (This is the login page) on web page.
+    #}
+    <div class="container">{% block content %}HOLD{% endblock %}</div>
+    
+    {# below (script) loads javaScript related to       
+       bootstrap, could also load image file  
+    #}
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous">
+    </script>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous">
+    </script>
+
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous">
+    </script>
+
+    <script
+      {# 
+        loads in javascript file index.js from static folder
+        Syntax; {{ }}, allows you to write a python expression
+        that will be evaluated.
+      #}
+      type="text/javascript"
+      src="{{ url_for('static', filename='index.js') }}">
+    </script>
+  </body>
+</html>

@@ -1,0 +1,64 @@
+{# Define sub-template delete_account.html 
+    Allows you to overwrite base template
+    (base.html) title block with the 
+    "Delete"
+
+    block content with 
+    "This is the Delete Account page"
+#}
+{% extends "base.html" %}
+
+{% block title %}
+Delete Account
+{% endblock %}
+
+{# Note: varable hold_var will be shown 
+    on content section of browser page 
+#}
+{% block content %}
+<h1>DILLON INDUSTRIES</h1>
+
+{# how to write statements in flask template 
+    boolean and hold_var are set in auth.py blueprint 
+    where routes are defined
+    if, elif, else, endif, while, for
+#}
+{% if boolean != True %}
+    {{ hold_var }}
+    {{ theUser }}
+{% else %}
+    Hello
+{% endif %} 
+
+{# build html form inside block content
+# This allows you to get input from user 
+# from browser content email lable field
+#
+# When we submit - form send POST request to backend
+#
+#}
+<form method="POST">
+    <h3 align="center">Delete Account</h3>
+    {# form-group & form-control are bootstrap classes. 
+        setup email field label 
+    #}
+    <div class="form-group">    
+        <label for="userName">User Name</label>
+        {# allows user text input in label field #}
+        <input 
+            type="text" 
+            class="form-control"
+            id="userName" 
+            name="userName" 
+            {# placeholder is shown in input field #}
+            placeholder="Enter User Name"     
+        />
+    </div>
+    <br />
+    <br />
+    {# create submit button #}
+    <button type="submit" class="btn btn-primary">
+        Delete
+    </button>
+</form>
+{% endblock %}

@@ -1,0 +1,110 @@
+{# Define sub-template sign_up.html 
+    Allows you to overwrite base template
+    (base.html) title block with the 
+    "Sign-Up"
+
+    block content with 
+    "This is the sign-up page"
+ #}
+
+{% extends "base.html" %}
+
+{% block title %}
+Sign-Up
+{% endblock %}  
+
+{% block content %}
+<h1>DILLON INDUSTRIES</h1>
+
+{# build html form inside block content
+ # This allows you to get input from user 
+ # from browser content email lable field
+ #
+ # When we submit - form send POST request to backend
+ #
+#}
+<form method="POST">
+    <h3 align="center">Sign Up</h3>
+    {# form-group & form-control are bootstrap classes #}
+    {# setup userName field label #}
+    <div class="form-group">
+        {# puts label named (userName) on browser in content location #}
+        <label for="userName">User Name</label>
+        {# allows user text input in label field #}
+        <input 
+            type="text" 
+            class="form-control"
+            id="userName" 
+            name="userName" 
+            {# placeholder is shown in input field #}
+            placeholder="Enter user name"     
+        />
+    </div>
+
+    {# setup password field label #}
+    <div class="form-group">
+        {# puts label named (password) on browser 
+           in content location 
+        #}
+        <label for="password1">Password</label>
+        {# allows user text input in label field #}
+        <input 
+            type="password" 
+            class="form-control"
+            id="password1" 
+            name="password1" 
+            placeholder="Enter password"     
+        />
+    </div>
+
+    {# setup confirm password field label #}
+    <div class="form-group">
+        {# puts label named password on browser in 
+           content location 
+        #}
+        <label for="password2">Password (Confirm)</label>
+        {# allows user text input in label field #}
+        <input 
+            type="password" 
+            class="form-control"
+            id="password2" 
+            name="password2" 
+            placeholder="Confirm password"     
+        />
+    </div>
+
+    {# setup email field label #}
+    <div class="form-group">
+        {# puts label named email on browser in content location #}
+        <label for="email">Email Address</label>
+        {# allows user text input in label field #}
+        <input 
+            type="email" 
+            class="form-control"
+            id="email" 
+            name="email" 
+            placeholder="Enter email"     
+        />
+    </div>
+
+    {# setup email field label #}
+    <div class="form-group">
+        {# puts label named email on browser in content location #}
+        <label for="contactnumber">Contact Number</label>
+        {# allows user text input in label field #}
+        <input 
+            type="text" 
+            class="form-control"
+            id="contactnumber" 
+            name="contactnumber" 
+            placeholder="Enter contact number"     
+        />
+    </div>
+    <br />
+    <br />
+    {# create submit button #}
+    <button type="submit" class="btn btn-primary">
+        Submit
+    </button>
+</form>
+{% endblock %}
